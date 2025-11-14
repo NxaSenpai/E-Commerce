@@ -1,9 +1,9 @@
 <script lang="ts">
-
+  
 </script>
 
 <template>
-  <button class="poster_btt"  :style="$attrs">
+  <button class="poster_btt" :style="$attrs">
     <span class="poster_btt_label">Shop Now &#8594 </span>
   </button>
 </template>

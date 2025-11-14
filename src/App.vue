@@ -1,5 +1,3 @@
-<script setup lang="ts"></script>
-
 <template>
 
   <main>
@@ -36,3 +34,8 @@ header {
   }
 }
 </style>
+
+<script lang="ts">
+
+
+</script>

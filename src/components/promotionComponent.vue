@@ -1,6 +1,4 @@
-<script setup lang="ts">
-
-
+<script lang="ts">
 class PosterItem {
   img: string;
   label: string;
@@ -18,10 +16,24 @@ class PosterItem {
 }
 
 const item_poster: PosterItem[] = [
-  new PosterItem("image/promo_item_1.png", "Everyday Fresh & Clean with Our Products", "Button", "green", "white"),
-  new PosterItem("image/promo_item_2.png", "Make your Breakfast Healthy and Easy", "Button", "yellow", "white"),
-  new PosterItem("image/promo_item_3.png", "The Best Organic Products Online", "Button", "red", "white"),
+  new PosterItem("image/promo_item_1.png", "Everyday Fresh & Clean with Our Products", "Clean Products", "green", "white"),
+  new PosterItem("image/promo_item_2.png", "Make your Breakfast Healthy and Easy", "Healthy Meals", "blue", "white"),
+  new PosterItem("image/promo_item_3.png", "The Best Organic Products Online", "Organic Foods", "red", "white"),
 ]
+
+export default {
+  data() {
+    return {
+      item_poster
+    };
+  },
+
+  methods: {
+  shopNow(label: string) {
+    alert(`Shop Now clicked for: ${label}`);
+  }
+}
+}
 
 </script>
 
@@ -31,7 +43,7 @@ const item_poster: PosterItem[] = [
       <div class="poster_bg" :style="{ 'background-color': item.bg_color }">`>
         <div class="poster_main">
         <span class="poster_label">{{ item.label }}</span>
-        <ButtonComponent :style="{'background': item.btt_color}" />
+        <ButtonComponent @click="shopNow(item.label)" :style="{'background': item.btt_color}" />
       </div>
       <img class="poster_img" :src="item.img" alt="Poster image">
       </div>
