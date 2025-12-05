@@ -1,11 +1,11 @@
 <script lang="ts">
 import axios from 'axios'
-import PromotionComponent from './components/promotionComponent.vue';
 export default{
   data() {
       return {
         promotions: [],
-        categories: []
+        categories: [],
+        products: [] // changed from product -> products
       }
   },
 
@@ -20,7 +20,6 @@ export default{
       }
     },
 
-
     async fetchCategories(){
       try {
         const response = await axios.get('http://localhost:3000/api/categories');
@@ -30,19 +29,32 @@ export default{
         console.log(error)
       }
     },
+
+    async fetchProducts(){
+      try {
+        const response = await axios.get('http://localhost:3000/api/products');
+        this.products = response.data; // fixed: assign to products
+        console.log(response.data);
+      } catch (error) {
+        console.log(error)
+      }
+    },
+
   },
 
   mounted() {
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    this.fetchPromotions(),
-    this.fetchCategories()
+    // call all fetches
+    this.fetchPromotions();
+    this.fetchCategories();
+    this.fetchProducts();
   }
 }
-
 </script>
 
 <template>
   <div class="container">
+
+    <MenuComponent/>
 
     <!-- Categories -->
     <div class="category_wrapper">
@@ -76,11 +88,41 @@ export default{
       </div>
     </div>
 
+    <!-- Products -->
+
+    <MenuComponent/>
+
+    
+    <div class="product_wrapper">
+      <div
+        v-for="(prod, index) in products"
+        :key="index"
+        class="product_item"
+      >
+        <ProductComponent
+          :name="prod.name"
+          :rating="prod.rating ?? 0"
+          :size="prod.size ?? prod.weight ?? ''"
+          :image="prod.image"
+          :price="prod.price"
+          :promotionAsPercentage="prod.promotionAsPercentage ?? prod.discountPercentage ?? 0"
+          :categoryId="prod.categoryId"
+          :inStock="prod.inStock"
+          :countSold="prod.countSold"
+          :group="prod.group"
+        />
+      </div>
+    </div>
+
   </div>
 </template>
 
-<style scoped>
+<style>
+body{
+  background: white;
+}
 .container{
+
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -90,9 +132,17 @@ export default{
 .category_wrapper, .promotion_wrapper {
   display: flex;
   gap: 15px;
+  flex-wrap: nowrap;
 }
 
-.category_item, .promotion_item {
+.product_wrapper{
+  display: flex;
+  gap: 20px 10px;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.category_item, .promotion_item, .product_item {
   width: auto;
 }
 </style>
