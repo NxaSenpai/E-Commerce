@@ -1,19 +1,38 @@
 <script lang="ts">
-export default {
-  props:{
-    title: String,
-    bgColor: String,
-    itemCounts: String,
-    image_src: String
+import { defineComponent } from 'vue'
+import router from '@/router'
+
+export default defineComponent({
+  props: {
+    title: { type: String, required: true },
+    bgColor: { type: String, default: 'var(--bg)' },
+    itemCounts: { type: [Number, String], default: 0 },
+    image_src: { type: String, required: true },
+    cate_id: { type: [Number, String], required: true },
   },
-}
+
+  methods: {
+    async onCategoryClick() {
+      if (!this.cate_id || !this.title) {
+        console.warn('category id or name is missing; navigation aborted')
+        return
+      }
+      await router.push({
+        name: 'CategoryView',
+        params: { categoryId: String(this.cate_id), categoryName: this.title },
+      })
+    },
+  },
+})
 </script>
 
 <template>
   <div class="category_list" role="list">
-    <button :style="{backgroundColor: bgColor}"
+    <button
+      :style="{ backgroundColor: bgColor }"
       class="category_btt"
       type="button"
+      @click="onCategoryClick"
     >
       <img class="category_img" :src="`http://localhost:3000/${image_src}`" alt="Category image" />
       <span class="category_name">{{ title }}</span>

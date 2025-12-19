@@ -1,5 +1,6 @@
 <script lang="ts">
 import ButtonComponent from './ButtonComponent.vue'
+import router from '@/router'
 export default{
   components: {
     ButtonComponent
@@ -10,7 +11,7 @@ export default{
     bgColor: String,
     btn_color: String,
     image_src: String
-  }
+  },
 }
 
 

@@ -12,7 +12,7 @@ interface ComponentAttribute {
 const categories = ref([
   'All',
   'Milks & Dairies',
-  'Coffes & Teas',
+  'Coffees & Teas',
   'Pet Foods',
   'Meats',
   'Vegetables',
