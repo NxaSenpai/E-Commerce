@@ -13,7 +13,7 @@ export default{
     return {
       promotions: [],
       categories: [],
-      products: [] // changed from product -> products
+      products: []
     }
   },
 
@@ -41,7 +41,7 @@ export default{
     async fetchProducts(){
       try {
         const response = await axios.get('http://localhost:3000/api/products');
-        this.products = response.data; // fixed: assign to products
+        this.products = response.data;
         console.log(response.data);
       } catch (error) {
         console.log(error)
@@ -51,7 +51,6 @@ export default{
   },
 
   mounted() {
-    // call all fetches
     this.fetchPromotions();
     this.fetchCategories();
     this.fetchProducts();
@@ -64,7 +63,6 @@ export default{
     <ShowcaseComponent/>
     <MenuComponent/>
 
-    <!-- Categories -->
     <div class="category_wrapper">
       <div
         v-for="(category, index) in categories"
@@ -81,7 +79,6 @@ export default{
       </div>
     </div>
 
-    <!-- Promotions -->
     <div class="promotion_wrapper">
       <div
         v-for="(promotion, index) in promotions"
@@ -96,8 +93,6 @@ export default{
         />
       </div>
     </div>
-
-    <!-- Products -->
 
     <MenuComponent/>
 
@@ -132,11 +127,11 @@ body{
   background: white;
 }
 .container{
-
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 20px;
+  padding-bottom: 50px;
 }
 
 .category_wrapper, .promotion_wrapper {

@@ -17,7 +17,7 @@ import SearchboxComponent from '@/components/searchboxComponent.vue'
   display: flex;
   width: 150%;
   padding: 10px;
-  margin-left: -260px;
+  margin-left:-260px;
 }
 
 .logo_img {
