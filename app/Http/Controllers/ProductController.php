@@ -15,6 +15,8 @@ class ProductController extends Controller
 
     public function createProduct(Request $request)
     {
+        abort_unless(auth()->user()->can('products.create'), 403);
+
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'pricing' => 'required|integer',
@@ -39,6 +41,8 @@ class ProductController extends Controller
     
     public function updateProduct(Request $request, $productId)
     {
+        abort_unless(auth()->user()->can('products.update'), 403);
+
         $product = Product::find($productId);
         if (!$product) {
             return response()->json(['error' => 'Product not found'], 404);
@@ -56,6 +60,8 @@ class ProductController extends Controller
 
     public function deleteProduct($productId)
     {
+        abort_unless(auth()->user()->can('products.delete'), 403);
+
         $product = Product::find($productId);
         if (!$product) {
             return response()->json(['error' => 'Product not found'], 404);
