@@ -5,6 +5,10 @@ use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\CategoryController;
 use \App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\AudienceController;
+use App\Http\Controllers\CommentController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -43,3 +47,25 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/me', fn(Request $r) => $r->user()->load('roles'));
     // Add other protected routes here
 });
+
+// Author APIs
+Route::post('/authors', [AuthorController::class, 'store']);
+
+// Article APIs
+Route::post('/articles', [ArticleController::class, 'store']);
+
+// Audience APIs
+Route::post('/audiences', [AudienceController::class, 'store']);
+
+// Subscribe API
+Route::post('/articles/{article}/subscribe', [ArticleController::class, 'subscribe']);
+
+// Comment APIs
+Route::post('/comments', [CommentController::class, 'store']);
+
+// Get APIs
+Route::get('/authors/{author}/articles', [AuthorController::class, 'articles']);
+Route::get('/articles/{article}/audiences', [ArticleController::class, 'audiences']);
+Route::get('/authors/{author}/audiences', [AuthorController::class, 'audiences']);
+Route::get('/audiences/{audience}/comments', [AudienceController::class, 'comments']);
+Route::get('/comments', [CommentController::class, 'index']);

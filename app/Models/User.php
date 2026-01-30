@@ -61,4 +61,9 @@ class User extends Authenticatable
             ->whereHas('permissions', fn($q) => $q->where('name', $permission))
             ->exists();
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }
